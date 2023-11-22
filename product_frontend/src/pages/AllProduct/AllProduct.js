@@ -44,7 +44,7 @@ const AllProduct = () => {
       });
   }, []);
 
-  console.log("productData", productData);
+  // console.log("productData", productData);
 
   const columns = [
     {
@@ -76,7 +76,7 @@ const AllProduct = () => {
       title: "ACTION",
       key: "action",
       render: (text, record) => {
-        console.log("RECORDDDDDDDDD", record._id);
+        // console.log("RECORDDDDDDDDD", record._id);
         return (
           <Space size="middle">
             <Button

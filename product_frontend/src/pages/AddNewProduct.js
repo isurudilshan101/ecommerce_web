@@ -13,7 +13,7 @@ const AddNewProduct = () => {
   const navigate = useNavigate();
   const [sku, setSku] = useState("");
   const [name, setName] = useState("");
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState();
   const [productDes, setProductDes] = useState("");
   const [images, setImages] = useState([]);
 
@@ -45,29 +45,44 @@ const AddNewProduct = () => {
       console.log(`File ${index + 1}: ${file.name}`);
     });
 
-    // // Ensure only up to 3 images are selected
-    // if (selectedImages.length > 3) {
-    //   alert("Please select up to 3 images.");
-    //   return;
-    // }
-
     setImages(selectedImages);
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
     alert("Product Added Successfully !");
-    console.log("test111111");
 
-    const formData = {
-      sku,
-      name,
-      qty,
-      productDes,
+    // const formData = {
+    //   sku,
+    //   name,
+    //   qty,
+    //   productDes,
+    // };
+
+    console.log("sku", sku);
+    console.log("name", name);
+    console.log("qty", qty);
+    console.log("productDes", productDes);
+
+    const formData = new FormData();
+    formData.append("sku", sku);
+    formData.append("name", name);
+    formData.append("qty", qty);
+    formData.append("productDes", productDes);
+
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+
+    console.log("FRONTEND", formData);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     };
-    console.log(formData);
+
     await axios
-      .post("http://localhost:8501/product/add", formData)
+      .post("http://localhost:8501/product/add", formData, config)
       .then((response) => {
         console.log(response.data.message);
         toast.success("Successfully added Product!", {
@@ -80,6 +95,7 @@ const AddNewProduct = () => {
         setName("");
         setQty("");
         setProductDes("");
+        setImages([]);
 
         navigate("/");
       })
@@ -93,7 +109,7 @@ const AddNewProduct = () => {
       <div className="heading_section mt-6 mb-4">
         <h1 className="text-3xl">Products - Add Product</h1>
       </div>
-      <form>
+      <form encType="multipart/form-data">
         <div className="mb-14">
           <InputUI
             id="sku"

@@ -23,10 +23,18 @@ const productSchema = new Schema({
     required: true,
   },
 
-  productImage: {
-    data: Buffer, // Binary data for the image
-    contentType: String, // Mime type of the image
-  },
+  images: [
+    {
+      data: {
+        type: Buffer,
+        required: true,
+      },
+      contentType: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const Product = mongoose.model("Product", productSchema);

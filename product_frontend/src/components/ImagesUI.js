@@ -3,7 +3,7 @@ import React from "react";
 const ImagesUI = ({ onChange }) => {
   return (
     <div>
-      <label className="custom-file-input">
+      <label htmlFor="images" className="custom-file-input">
         Product Images
         <span className="text-blue-500 underline cursor-pointer">
           Add Images

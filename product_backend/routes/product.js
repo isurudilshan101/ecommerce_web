@@ -13,8 +13,6 @@ const upload = multer({
 //Add new product
 router.post("/add", upload.array("images", 3), async (req, res) => {
   try {
-    console.log(req.body);
-
     // const sku = req.body.sku;
     // const name = req.body.name;
     // const qty = req.body.qty;
@@ -34,6 +32,7 @@ router.post("/add", upload.array("images", 3), async (req, res) => {
       name,
       qty,
       productDes,
+      images,
     };
 
     await new Product(newProduct)
@@ -55,7 +54,7 @@ router.post("/add", upload.array("images", 3), async (req, res) => {
 router.get("/", async (req, res) => {
   await Product.find()
     .then((result) => {
-      console.log("Result All Products", result);
+      // console.log("Result All Products", result);
       res.status(200).json(result);
     })
     .catch((err) => {
