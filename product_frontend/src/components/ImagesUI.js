@@ -1,6 +1,6 @@
 import React from "react";
 
-const ImagesUI = ({ onChange, onClick, images }) => {
+const ImagesUI = ({ onChange }) => {
   return (
     <div>
       <label className="custom-file-input">
@@ -10,6 +10,8 @@ const ImagesUI = ({ onChange, onClick, images }) => {
         </span>
         <input
           type="file"
+          id="images"
+          name="images"
           accept="image/*"
           multiple
           onChange={onChange}

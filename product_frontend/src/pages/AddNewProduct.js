@@ -3,7 +3,7 @@ import InputUI from "../components/InputUI";
 import "./AddNewProduct.css";
 import TextAreaUI from "../components/TextAreaUI";
 import ButtonUI from "../components/ButtonUI";
-// import ImagesUI from "../components/ImagesUI";
+import ImagesUI from "../components/ImagesUI";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,7 +15,7 @@ const AddNewProduct = () => {
   const [name, setName] = useState("");
   const [qty, setQty] = useState(0);
   const [productDes, setProductDes] = useState("");
-  // const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]);
 
   const handleSKU = (e) => {
     setSku(e.target.value);
@@ -37,22 +37,22 @@ const AddNewProduct = () => {
     // console.log(e.target.value);
   };
 
-  // const handleImageChange = (e) => {
-  //   console.log(e.target.files);
-  //   const selectedImages = Array.from(e.target.files);
-  //   console.log("selectedImages", selectedImages);
-  //   selectedImages.forEach((file, index) => {
-  //     console.log(`File ${index + 1}: ${file.name}`);
-  //   });
+  const handleImageChange = (e) => {
+    console.log(e.target.files);
+    const selectedImages = Array.from(e.target.files);
+    console.log("selectedImages", selectedImages);
+    selectedImages.forEach((file, index) => {
+      console.log(`File ${index + 1}: ${file.name}`);
+    });
 
-  //   // // Ensure only up to 3 images are selected
-  //   // if (selectedImages.length > 3) {
-  //   //   alert("Please select up to 3 images.");
-  //   //   return;
-  //   // }
+    // // Ensure only up to 3 images are selected
+    // if (selectedImages.length > 3) {
+    //   alert("Please select up to 3 images.");
+    //   return;
+    // }
 
-  //   setImages(selectedImages);
-  // };
+    setImages(selectedImages);
+  };
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -135,9 +135,9 @@ const AddNewProduct = () => {
             />
           </div>
         </div>
-        {/* <div className="image_ui mb-14">
+        <div className="image_ui mb-14">
           <ImagesUI onChange={handleImageChange} />
-        </div> */}
+        </div>
         <div className="flex justify-end">
           <ButtonUI
             title="Add product"
@@ -153,6 +153,16 @@ const AddNewProduct = () => {
       {qty}
       <br></br>
       {productDes}
+      <br></br>
+      <div>
+        {images.map((file, index) => (
+          <div key={index}>
+            <p>
+              File {index + 1}: {file.name}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

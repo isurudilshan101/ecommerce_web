@@ -1,9 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 let Product = require("../models/Product");
 
+// Multer configuration
+const storage = multer.memoryStorage(); // Store images in memory
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+});
+
 //Add new product
-router.post("/add", async (req, res) => {
+router.post("/add", upload.array("images", 3), async (req, res) => {
   try {
     console.log(req.body);
 
@@ -13,6 +21,13 @@ router.post("/add", async (req, res) => {
     // const productDes = req.body.productDes;
 
     const { sku, name, qty, productDes } = req.body;
+
+    const images = req.files.map((file) => ({
+      data: file.buffer,
+      contentType: file.mimetype,
+    }));
+
+    console.log("IMAGESsssssssssssssssssssssssssssss", images);
 
     const newProduct = {
       sku,
